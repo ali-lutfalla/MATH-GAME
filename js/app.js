@@ -103,10 +103,4 @@ const generateQuestions = () => {
     }
 }
 
-ScoreMenu.difficulty = 'mid';
-ScoreMenu.operator= '*';
-ScoreMenu.rounds = 5;
-generateQuestions();
-console.log(questions);
-
 /*----------- Event Listeners ----------*/
