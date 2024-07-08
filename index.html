@@ -23,11 +23,12 @@
             <button class="btn operator">+</button>
             <button class="btn operator">*</button>
             <button class="btn operator">/</button>
+            <button class="btn operator">mix</button>
         </div>
         <input type="number" name="round" class="rounds">
         <button class="start">Start</button>
     </div>
-    <div class="questionDiv">
+    <div class="questionDiv hideDiv">
         <h3 class="questionNumber">Question number :</h3>
         <h3 class="questionMessage">1 + 1</h3>
         <div class="questionBox">
@@ -38,12 +39,15 @@
         </div>
         <button class="next">next</button>
     </div>
-    <div class="gameResults">
+    <div class="gameResults hideDiv">
         <h1 class="endGameMessage"></h1>
         <p class="endGameDifficulty"></p>
         <p class="endGameOperator"></p>
         <p class="endGameCorrectAnswers"></p>
         <p class="endGameWrongAnswers"></p>
+        <div class="endGameButtonDiv">
+            <button class="reset">reset</button>
+        </div>
     </div>
 </body>
 </html>

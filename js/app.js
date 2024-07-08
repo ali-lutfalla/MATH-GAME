@@ -1,10 +1,10 @@
 /*-------------- Constants -------------*/
 
-const ScoreMenu = {rounds: undefined,
-                   difficulty:undefined,
-                   operator:undefined,
-                   correctAnswers:undefined
-                   ,wrongAnswers:undefined
+const ScoreMenu = {rounds: 0,
+                   difficulty:'',
+                   operator:'',
+                   correctAnswers:0
+                   ,wrongAnswers:0
 };
 
 const questions ={ question:[{
@@ -39,6 +39,9 @@ const endGameCard = document.querySelector('.gameResults');
 const endGameMessage = document.querySelector('.endGameMessage');
 const endGameDifficulty = document.querySelector('.endGameDifficulty');
 const endGameOperator = document.querySelector('.endGameOperator');
+const endGameCorrectAnswers = document.querySelector('.endGameCorrectAnswers');
+const endGameWrongAnswers = document.querySelector('.endGameWrongAnswers');
+const endGameResetButton = document.querySelector('.reset');
 
 
 /*-------------- Functions -------------*/
@@ -127,7 +130,7 @@ const generateRandomAnswers = () => {
     answersButtons.forEach((element) => {
         element.textContent = randomNumber(1,9999);
     })
-    answersButtons[randomNumber(0,4)].textContent = questions.question[currentQuestion].correctAnswer;
+    answersButtons[randomNumber(0,3)].textContent = questions.question[currentQuestion].correctAnswer;
 }
 
 const displayQuestion = () => {
@@ -138,26 +141,64 @@ const displayQuestion = () => {
 
 const disableAnswers = () => {
     answersButtons.forEach((element) => {
-        element.disabled;
+        element.disabled = true;
+    })
+}
+
+const enableAnswers = () => {
+    answersButtons.forEach((element) => {
+        element.disabled = false;
     })
 }
 
 const checkAnswerAndCorrect = (event) => {
-    if (event.textContent === Number(questions.question[currentQuestion].correctAnswer)){
+    
+    if (event.textContent == questions.question[currentQuestion].correctAnswer){
         questionMessage.innerText = `${questionMessage.innerText} and the answer is correct `;
-        disableAnswers();
         ScoreMenu.correctAnswers += 1;
     } else {
         questionMessage.innerText = `${questionMessage.innerText} and the answer is wrong the correct one is ${questions.question[currentQuestion].correctAnswer}`;
-        disableAnswers();
         ScoreMenu.wrongAnswers += 1;
     }
 }
 
+const endGameCardPrint = () => {
+    endGameDifficulty.innerText = ScoreMenu.difficulty;
+    endGameOperator.innerText = ScoreMenu.operator;
+    endGameCorrectAnswers.innerText = ScoreMenu.correctAnswers;
+    endGameWrongAnswers.innerText = ScoreMenu.wrongAnswers;
+
+}
+
 const checkWinner = () => {
     if (ScoreMenu.correctAnswers >= ScoreMenu.wrongAnswers) {
-
+        endGameMessage.innerText = 'GOOD JOB YOU WON!';
+        endGameCardPrint();
+    } else {
+        endGameMessage.innerText = 'HARD LUCK , DO BETTER NEXT TIME';
+        endGameCardPrint();
     }
+}
+
+const init = () => {
+    currentQuestion = 0;
+    for (let key in ScoreMenu) {
+        if (key === 'wrongAnswers' || key === 'correctAnswers'){
+            ScoreMenu[key] = 0;
+        }
+        else {
+            ScoreMenu[key] = undefined;
+        }
+    }
+
+    startMenu.classList.toggle('hideDiv');
+    endGameCard.classList.toggle('hideDiv');
+    questions.question.forEach((element) => {
+        for (let key in element){
+            element[key] = undefined;
+        }
+    })
+
 }
 
 /*----------- Event Listeners ----------*/
@@ -176,14 +217,15 @@ startMenu.addEventListener('click', (event) => {
 
         ScoreMenu.rounds = Number(rounds.value);
 
-        if (ScoreMenu.difficulty === undefined || ScoreMenu.operator === undefined || ScoreMenu.rounds === undefined) {
+        if (ScoreMenu.difficulty === '' || ScoreMenu.operator === '' || ScoreMenu.rounds === '') {
             
             message.innerText = 'please choose settings';
         } 
         
         else {
             generateQuestions();
-            startMenu.style.display = 'none';
+            startMenu.classList.toggle('hideDiv');
+            questionSection.classList.toggle('hideDiv');
             displayQuestion();
         }
     }
@@ -192,14 +234,30 @@ startMenu.addEventListener('click', (event) => {
 questionSection.addEventListener('click', (event) => {
 
     if (event.target.classList.contains('answer')) {
+        questions.question[currentQuestion].userAnswer = event.target.innerText;
         checkAnswerAndCorrect(event.target);
+        disableAnswers();
     } 
     if (event.target.classList.contains('next')) {
+        if (questions.question[currentQuestion].userAnswer === undefined){
+            return;
+        }
+        enableAnswers();
         currentQuestion++;
-        if (currentQuestion>ScoreMenu.rounds){
-
+        if (currentQuestion>=ScoreMenu.rounds){
+            checkWinner();
+            questionSection.classList.toggle('hideDiv');
+            endGameCard.classList.toggle('hideDiv');
+            return;
         }
         displayQuestion();
+        
     }
 
+})
+
+endGameCard.addEventListener('click', (event) => {
+    if (event.target.classList.contains('reset')) {
+        init();
+    }
 })
