@@ -8,6 +8,42 @@
     <script defer src="js/app.js"></script>
 </head>
 <body>
-    
+    <div class="startMenu">
+        <h2 class="message">Choose your settings</h2>
+        <h2 class="diffMessage">Choose a difficulty</h2>
+        <div class="menuRow">
+            <button class="btn difficulty">easy</button>
+            <button class="btn difficulty">mid</button>
+            <button class="btn difficulty">hard</button>
+            <button class="btn difficulty">mix</button>
+        </div>
+        <h2 class="operMessage">Choose an operator</h2>
+        <div class="menuRow">
+            <button class="btn operator">-</button>
+            <button class="btn operator">+</button>
+            <button class="btn operator">*</button>
+            <button class="btn operator">/</button>
+        </div>
+        <input type="number" name="round" class="rounds">
+        <button class="start">Start</button>
+    </div>
+    <div class="questionDiv">
+        <h3 class="questionNumber">Question number :</h3>
+        <h3 class="questionMessage">1 + 1</h3>
+        <div class="questionBox">
+            <button class="btn answer">1</button>
+            <button class="btn answer">2</button>
+            <button class="btn answer">3</button>
+            <button class="btn answer">4</button>
+        </div>
+        <button class="next">next</button>
+    </div>
+    <div class="gameResults">
+        <h1 class="endGameMessage"></h1>
+        <p class="endGameDifficulty"></p>
+        <p class="endGameOperator"></p>
+        <p class="endGameCorrectAnswers"></p>
+        <p class="endGameWrongAnswers"></p>
+    </div>
 </body>
 </html>
