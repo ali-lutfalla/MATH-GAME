@@ -1,8 +1,8 @@
 /*-------------- Constants -------------*/
 
 const ScoreMenu = {rounds: 0,
-                   difficulty:'',
-                   operator:'',
+                   difficulty: undefined,
+                   operator:undefined,
                    correctAnswers:0
                    ,wrongAnswers:0
 };
@@ -51,7 +51,7 @@ const randomNumber = (low,high) => {
 };
 
 const guessDifficulty = () => {
-    return difficulty[randomNumber(0,3)];
+    return difficulty[randomNumber(0,2)];
 };
 
 const guessOperator = () => {
@@ -163,10 +163,10 @@ const checkAnswerAndCorrect = (event) => {
 }
 
 const endGameCardPrint = () => {
-    endGameDifficulty.innerText = ScoreMenu.difficulty;
-    endGameOperator.innerText = ScoreMenu.operator;
-    endGameCorrectAnswers.innerText = ScoreMenu.correctAnswers;
-    endGameWrongAnswers.innerText = ScoreMenu.wrongAnswers;
+    endGameDifficulty.innerText = `The difficulty: ${ScoreMenu.difficulty}`;
+    endGameOperator.innerText = `The operartor: ${ScoreMenu.operator}`;
+    endGameCorrectAnswers.innerText = `Number of correct answers: ${ScoreMenu.correctAnswers}`;
+    endGameWrongAnswers.innerText = `Number of wrong answers: ${ScoreMenu.wrongAnswers}`;
 
 }
 
@@ -191,13 +191,15 @@ const init = () => {
         }
     }
 
-    startMenu.classList.toggle('hideDiv');
-    endGameCard.classList.toggle('hideDiv');
     questions.question.forEach((element) => {
         for (let key in element){
             element[key] = undefined;
         }
     })
+
+    startMenu.classList.toggle('hideDiv');
+    endGameCard.classList.toggle('hideDiv');
+    rounds.value = 0;
 
 }
 
@@ -217,7 +219,7 @@ startMenu.addEventListener('click', (event) => {
 
         ScoreMenu.rounds = Number(rounds.value);
 
-        if (ScoreMenu.difficulty === '' || ScoreMenu.operator === '' || ScoreMenu.rounds === '') {
+        if (ScoreMenu.difficulty === undefined || ScoreMenu.operator === undefined || ScoreMenu.rounds === 0) {
             
             message.innerText = 'please choose settings';
         } 

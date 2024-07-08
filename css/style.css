@@ -1,3 +1,42 @@
+* {
+    box-sizing: border-box
+  }
+  
+body {
+    background-color: rgb(245, 216, 216);
+    /* Use a system font, if none are available use an available sans-sarif font */
+    font-family: system-ui, sans-serif;
+    /* Ensures full height compatibility across devices */
+    min-height: 100dvh;
+    margin: 0;
+  }
+
+.startMenu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.menuRow {
+    display: flex;
+    gap: 16px;
+    justify-content: space-between;
+}
+
+.btn {
+    border: 1px solid;
+    border-radius: 10px;
+    font-size: 16px;
+    padding: 8px;
+    cursor: pointer;
+}
+.menuFooter {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-radius: 10px;
+}
+
 .hideDiv {
     display: none;
 }
