@@ -2,16 +2,23 @@
     box-sizing: border-box
   }
   
+.poppins-medium-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: italic;
+  }
+
+
 body {
-    background-color: rgb(245, 216, 216);
+    background-color: rgba(113, 201, 117, 1);
     /* Use a system font, if none are available use an available sans-sarif font */
-    font-family: system-ui, sans-serif;
+    font-family: "Poppins", sans-serif;
     /* Ensures full height compatibility across devices */
     min-height: 100dvh;
     margin: 0;
-  }
+  }  
 
-.startMenu {
+.startMenu  {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -25,10 +32,23 @@ body {
 
 .btn {
     border: 1px solid;
-    border-radius: 10px;
-    font-size: 16px;
+    border-radius: 50px;
+    font-size: 36px;
+    font-weight: bold;
     padding: 8px;
     cursor: pointer;
+    width: 100px;
+    height: 100px;
+    background-color: rgba(255, 158, 101, 1);
+    color: white;
+}
+.btn:hover {
+    background-color: rgba(235, 87, 87, 0.8);
+    color: white;
+}
+.btn:active {
+    background-color:rgba(235, 87, 87, 1);
+    color: white;
 }
 .menuFooter {
     display: flex;
