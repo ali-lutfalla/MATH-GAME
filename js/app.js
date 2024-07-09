@@ -30,6 +30,8 @@ let currentQuestion = 0;
 
 const startMenu = document.querySelector('.startMenu');
 const message = document.querySelector('.message');
+const difficultyMenuButtons = document.querySelectorAll('.difficulty');
+const operatorMenuButtons = document.querySelectorAll('.operator');
 const rounds = document.querySelector('.rounds');
 const questionNumber = document.querySelector('.questionNumber');
 const questionMessage = document.querySelector('.questionMessage');
@@ -59,18 +61,24 @@ const guessOperator = () => {
 };
 
 const calculator = (number1,number2,operator) => {
+    let total = 0;
     switch (operator) {
         case '-':
-            return number1 - number2;
+            total = number1 - number2;
+            return parseFloat(total.toFixed(2));
             break;
         case '+':
-            return number1 + number2;
+            total = number1 + number2;
+            return parseFloat(total.toFixed(2));
             break;
         case '*':
-            return number1 * number2;
+            total = number1 * number2;
+            return parseFloat(total.toFixed(2));
             break;
         case '/':
-            return number1 / number2;
+            total = number1 / number2;
+            return parseFloat(total.toFixed(2));
+            break;
     }
 }
 
@@ -127,8 +135,14 @@ const questionMessagePrint = () => {
 }
 
 const generateRandomAnswers = () => {
+    let counter = 1;
     answersButtons.forEach((element) => {
-        element.textContent = randomNumber(1,9999);
+        element.textContent = questions.question[currentQuestion].correctAnswer + counter;
+        if (questions.question[currentQuestion].correctAnswer % 2 === 0) {
+            counter+=2;
+        } else {
+            counter+=1;
+        }
     })
     answersButtons[randomNumber(0,3)].textContent = questions.question[currentQuestion].correctAnswer;
 }
@@ -139,17 +153,45 @@ const displayQuestion = () => {
     generateRandomAnswers();
 }
 
-const disableAnswers = () => {
+const disableAnswers = (event) => {
     answersButtons.forEach((element) => {
         element.disabled = true;
+        element.classList.add('disable');
     })
+    event.classList.remove('disable');
 }
 
 const enableAnswers = () => {
     answersButtons.forEach((element) => {
         element.disabled = false;
+        element.classList.remove('disable');
     })
 }
+
+const selectDifficultyMenuButton = (event) => {
+    difficultyMenuButtons.forEach((element) => {
+        element.classList.remove('selected');
+    })
+    event.classList.add('selected');
+}
+
+const selectOperatorMenuButton = (event) => {
+    operatorMenuButtons.forEach((element) => {
+        element.classList.remove('selected');
+    })
+    event.classList.add('selected');
+}
+
+const resetMenuSelection = () => {
+    difficultyMenuButtons.forEach((element) => {
+        element.classList.remove('selected');
+    });
+    operatorMenuButtons.forEach((element) => {
+        element.classList.remove('selected');
+    });
+
+}
+
 
 const checkAnswerAndCorrect = (event) => {
     
@@ -200,6 +242,7 @@ const init = () => {
     startMenu.classList.toggle('hideDiv');
     endGameCard.classList.toggle('hideDiv');
     rounds.value = 0;
+    resetMenuSelection();
 
 }
 
@@ -209,10 +252,12 @@ startMenu.addEventListener('click', (event) => {
     
     if (event.target.classList.contains('operator')) {
         ScoreMenu.operator = event.target.textContent;
+        selectOperatorMenuButton(event.target);
     } 
 
     if (event.target.classList.contains('difficulty')) {
         ScoreMenu.difficulty = event.target.textContent;
+        selectDifficultyMenuButton(event.target);
     } 
 
     if (event.target.classList.contains('start')) {
@@ -238,7 +283,7 @@ questionSection.addEventListener('click', (event) => {
     if (event.target.classList.contains('answer')) {
         questions.question[currentQuestion].userAnswer = event.target.innerText;
         checkAnswerAndCorrect(event.target);
-        disableAnswers();
+        disableAnswers(event.target);
     } 
     if (event.target.classList.contains('next')) {
         if (questions.question[currentQuestion].userAnswer === undefined){

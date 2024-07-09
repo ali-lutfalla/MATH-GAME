@@ -18,7 +18,7 @@ body {
     margin: 0;
   }  
 
-.startMenu  {
+.startMenu , .questionDiv , .gameResults {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -29,6 +29,12 @@ body {
     gap: 16px;
     justify-content: space-between;
 }
+.questionBox {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 25px;
+}
 
 .btn {
     border: 1px solid;
@@ -37,6 +43,7 @@ body {
     font-weight: bold;
     padding: 8px;
     cursor: pointer;
+    font-family: "Poppins", sans-serif;
     width: 100px;
     height: 100px;
     background-color: rgba(255, 158, 101, 1);
@@ -50,11 +57,46 @@ body {
     background-color:rgba(235, 87, 87, 1);
     color: white;
 }
+.disable {
+    background-color: gray;
+    cursor: none;
+}
+.disable:hover {
+    background-color: gray;
+}
+.disable:active {
+    background-color: gray;
+}
+.selected {
+    background-color:rgba(235, 87, 87, 1);
+}
+.rounds {
+    border: 2px solid red;
+    border-radius: 20px;
+    text-align: center;
+    height: 65px;
+    font-size: 23px;
+    padding: 10px;
+}
+.rounds:focus {
+    border: 2px solid rgba(0, 123, 255, 1);
+}
+
+.start , .reset , .next {
+    width: 150px;
+    height: 70px;
+    border: 1px solid red;
+    border-radius: 15px;
+    font-size: 40;
+}
+
 .menuFooter {
     display: flex;
     flex-direction: column;
     gap: 12px;
     border-radius: 10px;
+    justify-content: center;
+    align-items: center;
 }
 
 .hideDiv {
