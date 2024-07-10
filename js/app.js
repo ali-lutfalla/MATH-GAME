@@ -264,6 +264,11 @@ startMenu.addEventListener('click', (event) => {
 
         ScoreMenu.rounds = Number(rounds.value);
 
+        if (ScoreMenu.rounds < 0){
+            message.innerText = 'please choose positive number';
+            return;
+        }
+
         if (ScoreMenu.difficulty === undefined || ScoreMenu.operator === undefined || ScoreMenu.rounds === 0) {
             
             message.innerText = 'please choose settings';
