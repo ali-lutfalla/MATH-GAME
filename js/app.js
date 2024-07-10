@@ -137,7 +137,7 @@ const questionMessagePrint = () => {
 const generateRandomAnswers = () => {
     let counter = 1;
     answersButtons.forEach((element) => {
-        element.textContent = questions.question[currentQuestion].correctAnswer + counter;
+        element.textContent = parseFloat((questions.question[currentQuestion].correctAnswer + counter).toFixed(2));
         if (questions.question[currentQuestion].correctAnswer % 2 === 0) {
             counter+=2;
         } else {

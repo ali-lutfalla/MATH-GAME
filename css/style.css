@@ -11,9 +11,7 @@
 
 body {
     background-color: rgba(113, 201, 117, 1);
-    /* Use a system font, if none are available use an available sans-sarif font */
     font-family: "Poppins", sans-serif;
-    /* Ensures full height compatibility across devices */
     min-height: 100dvh;
     margin: 0;
   }  
